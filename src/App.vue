@@ -3,5 +3,8 @@ import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <RouterView />
+    <Toast />
+    <ConfirmDialog />
+
+    <RouterView />
 </template>
