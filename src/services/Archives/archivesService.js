@@ -1,0 +1,1 @@
+//todas las consultas de los archivos

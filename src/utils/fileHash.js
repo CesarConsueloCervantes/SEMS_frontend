@@ -1,0 +1,1 @@
+//para calcular el codigo hash

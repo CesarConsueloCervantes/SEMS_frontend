@@ -1,0 +1,1 @@
+la tabla metadata que muestra los metadatos de los archivos cargados.

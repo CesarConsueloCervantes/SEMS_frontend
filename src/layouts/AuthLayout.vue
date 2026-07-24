@@ -1,0 +1,1 @@
+layaout para el login y registro de usuarios
