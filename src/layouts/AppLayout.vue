@@ -1,1 +1,3 @@
-estructura pura y dura
+<template>
+    <RouterView />
+</template>
