@@ -18,12 +18,15 @@ import ConfirmDialog from 'primevue/confirmdialog'
 import App from './App.vue'
 import router from './router'
 
+import primeVueConfig from '@/config/primevue'
+
 const app = createApp(App)
 
 app.use(createPinia())
+
 app.use(router)
 
-app.use(PrimeVue)
+app.use(PrimeVue, primeVueConfig)
 
 app.use(ToastService)
 app.use(ConfirmationService)
