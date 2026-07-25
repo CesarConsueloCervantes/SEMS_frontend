@@ -1,0 +1,1 @@
+//la configuracion de las columnas de metadata

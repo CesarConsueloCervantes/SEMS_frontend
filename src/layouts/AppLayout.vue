@@ -1,0 +1,1 @@
+estructura pura y dura
