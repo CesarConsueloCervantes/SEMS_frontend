@@ -1,1 +1,16 @@
-//todos los servicios de los metadatos
+import api from '@/config/axios'
+
+/**
+ * Retrieves filtered and ordered metadata listing for a specific user ID.
+ * @param {*} params 
+ * @returns 
+ */
+export async function getMetadataByUser(params = {}) {
+
+    const { data } = await api.get(
+        `/metadata`,
+        { params }
+    )
+    
+    return data
+}

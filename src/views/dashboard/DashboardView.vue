@@ -1,1 +1,3 @@
-la vista del dasboard
+<template>
+  <div>DashboardView.vue</div>
+</template>
