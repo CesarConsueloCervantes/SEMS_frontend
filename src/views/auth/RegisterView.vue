@@ -1,1 +1,3 @@
-la vista del registro
+<template>
+  <div>RegisterView.vue</div>
+</template>

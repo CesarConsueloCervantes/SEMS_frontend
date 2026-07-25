@@ -1,1 +1,3 @@
-la vista del login
+<template>
+  <div>LoginView.vue</div>
+</template>
