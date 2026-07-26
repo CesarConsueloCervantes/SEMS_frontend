@@ -45,6 +45,7 @@
             type="password"
             placeholder="••••••••"
             required
+            minlength="8"
             class="w-full px-4 py-3 bg-[#1e1e1e] border border-[#333333] rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
           />
         </div>
@@ -63,6 +64,8 @@
           />
         </div>
 
+        <p v-if="errorMessage" class="text-red-500 text-sm text-center">{{ errorMessage }}</p>
+
         <button
           type="submit"
           :disabled="loading"
@@ -71,6 +74,17 @@
           <span v-if="loading" class="animate-spin mr-2 h-5 w-5 border-2 border-white border-t-transparent rounded-full"></span>
           <span>{{ loading ? 'Registrando...' : 'Registrarse' }}</span>
         </button>
+
+        <div class="text-center text-sm text-gray-400 mt-4">
+            ¿Ya tienes cuenta?
+
+            <RouterLink
+                :to="{ name: 'login' }"
+                class="text-blue-500 hover:text-blue-400 transition-colors"
+            >
+                Inicia sesión
+            </RouterLink>
+        </div>
       </form>
     </div>
   </div>
@@ -79,43 +93,46 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore'
 
+const router = useRouter()
+const { register } = useAuthStore()
 const name = ref('')
 const email = ref('')
 const password = ref('')
 const passwordConfirmation = ref('')
-
-const props = defineProps({
-  loading: {
-    type: Boolean,
-    default: false
-  }
-})
-
-const emit = defineEmits(['submit'])
+const loading = ref(false)
+const errorMessage = ref('')
 
 /**
- * Validates the registration form inputs and emits the submit event if everything is correct.
- *
- * Valida que los campos no estén vacíos y que las contraseñas coincidan. 
- * Si todo es correcto, emite el evento con los datos del usuario.
+ * Validates the registration form inputs and connects to the API to create the user.
  */
-const handleSubmit = () => {
+const handleSubmit = async () => {
   if (!name.value || !email.value || !password.value || !passwordConfirmation.value) {
-    alert('Por favor, rellena todos los campos.')
-    return
-  }
-
-  if (password.value !== passwordConfirmation.value) {
-    alert('Las contraseñas no coinciden.')
+    errorMessage.value = 'Por favor, rellena todos los campos.'
     return
   }
   
-  emit('submit', {
-    name: name.value,
-    email: email.value,
-    password: password.value,
-    password_confirmation: passwordConfirmation.value
-  })
+  if (password.value !== passwordConfirmation.value) {
+    errorMessage.value = 'Las contraseñas no coinciden.'
+    return
+  }
+  
+  try {
+    loading.value = true
+    errorMessage.value = ''
+    const data = await register({
+      name: name.value,
+      email: email.value,
+      password: password.value,
+      password_confirmation: passwordConfirmation.value
+    })
+    router.push('/dashboard')
+  } catch (error) {
+    errorMessage.value = error.response?.data?.message || 'Error al registrarse'
+  } finally {
+    loading.value = false
+  }
 }
 </script>
