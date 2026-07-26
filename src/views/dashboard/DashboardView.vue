@@ -1,18 +1,28 @@
 <template>
-  <div class="min-h-screen relative p-6">
-    <!-- Logout button located in top right corner -->
-    <div class="absolute top-4 right-4">
+  <div class="min-h-screen flex flex-col bg-[#1e1e1e] text-gray-100">
+    <header class="w-full h-10 bg-[#252526] border-b border-[#333333] px-4 py-1.5 flex justify-between items-center sticky top-0 z-20 shadow-sm">
+      <h1 class="text-sm font-bold tracking-wide text-gray-100">SEMS Dashboard</h1>
+
       <button
         @click="handleLogout"
         :disabled="loading"
-        class="px-5 py-2.5 bg-red-600 hover:bg-red-700 disabled:bg-red-800 disabled:opacity-50 text-white font-medium rounded-full shadow-md hover:shadow-red-600/30 transition-all duration-150 flex items-center justify-center cursor-pointer"
+        class="px-3 py-1 bg-red-600 hover:bg-red-700 disabled:bg-red-800 disabled:opacity-50 text-white font-medium rounded-full shadow-sm hover:shadow-red-600/30 transition-all duration-150 flex items-center justify-center cursor-pointer text-xs"
       >
-        <span v-if="loading" class="animate-spin mr-2 h-4 w-4 border-2 border-white border-t-transparent rounded-full"></span>
+        <span v-if="loading" class="animate-spin mr-1.5 h-3.5 w-3.5 border-2 border-white border-t-transparent rounded-full"></span>
         <span>{{ loading ? 'Cerrando sesión...' : 'Cerrar sesión' }}</span>
       </button>
-    </div>
+    </header>
 
-    <h1 class="text-2xl font-bold text-gray-100">Dashboard</h1>
+    <div class="flex flex-1 relative overflow-hidden">
+      <!-- Main dashboard content -->
+      <main class="flex-1 p-6 overflow-y-auto mr-80">
+        <h2 class="text-2xl font-bold text-gray-100 mb-4">Bienvenido al Panel Principal</h2>
+      </main>
+
+      <aside class="w-80 border-l border-[#333333] bg-[#1e1e1e] p-3 fixed right-0 top-10 bottom-0 overflow-hidden z-10 flex justify-center items-stretch">
+        <ArchivesPanel />
+      </aside>
+    </div>
   </div>
 </template>
 
@@ -20,15 +30,14 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
+import ArchivesPanel from '@/components/Dashboard/Sidebar/ArchivesPanel.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()
 const loading = ref(false)
 
 /**
- * Handles the user logout flow by calling the auth store action and redirecting to the login view.
- * 
- * Llama a la función logout del authStore para finalizar la sesión del usuario y luego redirige al login.
+ * Handles the user logout process by invoking the auth store logout action and navigating back to the login page.
  */
 const handleLogout = async () => {
   try {
