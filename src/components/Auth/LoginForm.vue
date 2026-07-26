@@ -35,6 +35,8 @@
           />
         </div>
 
+        <p v-if="errorMessage" class="text-red-500 text-sm text-center">{{ errorMessage }}</p>
+
         <button
           type="submit"
           :disabled="loading"
@@ -43,6 +45,17 @@
           <span v-if="loading" class="animate-spin mr-2 h-5 w-5 border-2 border-white border-t-transparent rounded-full"></span>
           <span>{{ loading ? 'Iniciando sesión...' : 'Iniciar sesión' }}</span>
         </button>
+
+        <div class="text-center text-sm text-gray-400 mt-4">
+            ¿No tienes cuenta?
+
+            <RouterLink
+                :to="{ name: 'register' }"
+                class="text-blue-500 hover:text-blue-400 transition-colors"
+            >
+                Regístrate
+            </RouterLink>
+        </div>
       </form>
     </div>
   </div>
@@ -51,31 +64,38 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore'
 
+const router = useRouter()
+const { login } = useAuthStore()
 const email = ref('')
 const password = ref('')
-
-const props = defineProps({
-  loading: {
-    type: Boolean,
-    default: false
-  }
-})
-
-const emit = defineEmits(['submit'])
+const loading = ref(false)
+const errorMessage = ref('')
 
 /**
- * Validates form input fields and emits the submit event containing the email and password payload.
+ * Validates form input fields, connects to the API to authenticate, and emits a success event.
  */
-const handleSubmit = () => {
+const handleSubmit = async () => {
   if (!email.value || !password.value) {
-    alert('Por favor, rellena todos los campos.')
+    errorMessage.value = 'Por favor, rellena todos los campos.'
     return
   }
   
-  emit('submit', {
-    email: email.value,
-    password: password.value
-  })
+  try {
+    loading.value = true
+    errorMessage.value = ''
+    const data = await login({
+      email: email.value,
+      password: password.value
+    })
+
+  } catch (error) {
+    errorMessage.value = error.response?.data?.message || 'Error al iniciar sesión'
+  } finally {
+    loading.value = false
+    router.push('/dashboard')
+  }
 }
 </script>
