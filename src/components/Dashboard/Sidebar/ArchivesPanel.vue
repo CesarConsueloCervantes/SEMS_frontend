@@ -11,7 +11,10 @@
           @click="handleUpdateData"
           class="w-full bg-[#2d2d2d]! hover:bg-[#383838]! border-[#404040]! text-white! font-bold! py-2! px-3! rounded-lg! transition-colors flex items-center justify-center cursor-pointer text-sm"
         >
-          <span>Actualizar Datos</span>
+          <span class="flex items-center justify-center gap-2">
+            Subir Archivos
+            <i class="pi pi-plus-circle"></i>
+          </span>
         </Button>
 
         <Button
