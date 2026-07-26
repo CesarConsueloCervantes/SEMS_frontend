@@ -24,3 +24,25 @@ body {
     background-color: #020617;
     color: #f8fafc;
 }
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Fondo */
+::-webkit-scrollbar-track {
+  background: #1e1e1e;
+  border-radius: 8px;
+}
+
+/* Barra */
+::-webkit-scrollbar-thumb {
+  background: #4b5563; /* gris */
+  border-radius: 8px;
+}
+
+/* Hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}

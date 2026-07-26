@@ -6,7 +6,7 @@ import api from '@/config/axios'
 export async function getArchivesByUser() {
 
     const { data } = await api.get(
-        `/user/archives-prossesed`
+        `/archives-prossesed`
     )
     
     return data
