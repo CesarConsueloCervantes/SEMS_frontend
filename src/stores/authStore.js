@@ -23,6 +23,15 @@ export const useAuthStore = defineStore('auth', {
             localStorage.setItem('access_token', access_token)
         },
 
+        async register(userData){
+            
+            const { user, access_token } = await authService.register(userData)
+
+            this.user = user
+            localStorage.setItem('user', JSON.stringify(user))
+            localStorage.setItem('access_token', access_token)
+        },
+
         async logout() {
 
             try {
