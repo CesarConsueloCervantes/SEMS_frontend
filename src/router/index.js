@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore'
 import DashboardView from '@/views/dashboard/DashboardView.vue'
 import LoginView from '@/views/auth/LoginView.vue'
 import RegisterView from '@/views/auth/RegisterView.vue'
@@ -23,11 +24,17 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: LoginView,
+      meta:{
+        guest: true
+      }
     },
     {
       path: '/register',
       name: 'register',
       component: RegisterView,
+      meta:{
+        guest: true
+      }
     },
     {
       path: '/:pathMatch(.*)*',
@@ -38,12 +45,13 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    const token = localStorage.getItem('token')
+    const authStore = useAuthStore()
 
-    if (to.meta.requiresAuth && !token) {
-        next('/login')
-        return
-    }
+    if (to.meta.requiresAuth && !authStore.isAuthenticated)
+        return next('/login')
+
+    if (to.meta.guest && authStore.isAuthenticated)
+        return next('/dashboard')
 
     next()
 })
