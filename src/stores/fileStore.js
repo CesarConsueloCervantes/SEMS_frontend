@@ -13,6 +13,7 @@ export const ArchiveUploadStatus = {
   READY_TO_UPLOAD: 'ready_to_upload',
   UPLOADING: 'uploading',
   COMPLETED: 'completed',
+  CANCELED: 'canceled',
   ERROR: 'error'
 }
 
@@ -87,21 +88,30 @@ export const useArchivesUploadStore = defineStore('archivesUpload', () => {
       return
     }
 
-    if (isCanceled(id)) return
+    if (isCanceled(id)) {
+      updateStatus(id, ArchiveUploadStatus.CANCELED)
+      return
+    }
 
     if (!await calculateHash(id)) {
       releaseArchive(id)
       return
     }
 
-    if (isCanceled(id)) return
+    if (isCanceled(id)) {
+      updateStatus(id, ArchiveUploadStatus.CANCELED)
+      return
+    }
 
     if (!await validateArchive(id)) {
       releaseArchive(id)
       return
     }
 
-    if (isCanceled(id)) return
+    if (isCanceled(id)) {
+      updateStatus(id, ArchiveUploadStatus.CANCELED)
+      return
+    }
   }
 
 
