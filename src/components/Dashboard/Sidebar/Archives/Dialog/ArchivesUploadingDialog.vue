@@ -2,6 +2,7 @@
   <Dialog
     :visible="visible"
     @update:visible="handleVisibilityChange"
+    @hide="refreshData()"
     modal
     header="Carga de Archivos"
     :draggable="false"
@@ -40,7 +41,11 @@ import Dialog from 'primevue/dialog'
 import { useArchivesUploadStore } from '@/stores/fileStore.js'
 import ArchivesDropzone from './ArchivesDropzone.vue'
 import ArchivesFileList from './ArchivesFileList.vue'
+import { useAppStore } from '@/stores/appStore.js'
+import { useMetadataStore } from '@/stores/metadataStore.js'
 
+const appStore = useAppStore()
+const metadataStore = useMetadataStore()
 // Props definition for controlling dialog visibility
 const props = defineProps({
   visible: {
@@ -68,5 +73,10 @@ const hasArchives = computed(() => {
  */
 const handleVisibilityChange = (value) => {
   emit('update:visible', value)
+}
+
+const refreshData = () => {
+  appStore.refreshArchives()
+  metadataStore.fetchMetadata()
 }
 </script>
