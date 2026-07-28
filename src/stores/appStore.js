@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import * as archivesService from '@/services/Archives/archivesService'
-import * as metadataService from '@/services/Archives/metadataService'
 
 export const useAppStore = defineStore('app', {
     
@@ -34,19 +33,8 @@ export const useAppStore = defineStore('app', {
                 this.loading.archives = false
             }
         },
-        async consultMetadata(params) {
-            try {
-                this.loading.metadata = false
-                
-                const response = await metadataService.getMetadataByUser(params)
-                this.metadata = Array.isArray(response)
-                    ? response
-                    : (response?.data || [])
-            } catch (error) {
-                console.error(error)
-            } finally {
-                this.loading.metadata = false
-            }
+        refreshMetadata(metadata) {
+            this.metadata = metadata
         },
     },
 })
