@@ -409,10 +409,12 @@ export const useArchivesUploadStore = defineStore('archivesUpload', () => {
     try {
       updateStatus(archive.id, ArchiveUploadStatus.UPLOADING)
 
-      await archivesService.storeArchive({
+      const payload = {
         file: archive.file,
         hash_file: archive.hash
-      })
+      }
+      
+      await archivesService.storeArchive(payload)
 
       updateStatus(archive.id, ArchiveUploadStatus.COMPLETED)
       releaseArchive(id)
