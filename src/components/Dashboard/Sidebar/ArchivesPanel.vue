@@ -8,7 +8,7 @@
       <div class="flex flex-col gap-2.5">
         <Button
           type="button"
-          @click="handleUpdateData"
+          @click="openUploadDialog"
           class="w-full bg-[#2d2d2d]! hover:bg-[#383838]! border-[#404040]! text-white! font-bold! py-2! px-3! rounded-lg! transition-colors flex items-center justify-center cursor-pointer text-sm"
         >
           <span class="flex items-center justify-center gap-2">
@@ -40,13 +40,18 @@
         </slot>
       </div>
     </fieldset>
+
+    <!-- Dialog for uploading archives -->
+    <ArchivesUploadingDialog v-model:visible="isUploadDialogOpen" />
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import Button from 'primevue/button'
 import ExportButton from './ExportButton.vue'
 import ArchivesList from './Archives/ArchivesList.vue'
+import ArchivesUploadingDialog from './Archives/Dialog/ArchivesUploadingDialog.vue'
 
 const props = defineProps({
   title: {
@@ -66,10 +71,14 @@ const emit = defineEmits([
   'select-archive'
 ])
 
+// Controls visibility state of the upload dialog
+const isUploadDialogOpen = ref(false)
+
 /**
- * Triggers the update data event when the user clicks the update button.
+ * Opens the file uploading dialog and emits update-data event.
  */
-const handleUpdateData = () => {
+const openUploadDialog = () => {
+  isUploadDialogOpen.value = true
   emit('update-data')
 }
 
