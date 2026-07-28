@@ -1,39 +1,70 @@
 import { defineStore } from 'pinia'
+import { computed, ref, reactive } from 'vue'
 import { metadataColumns } from '@/constants/metadataColumns'
 import * as metadataService from '@/services/Archives/metadataService'
+import { useAppStore } from '@/stores/appStore'
 
-export const useMetadataStore = defineStore('metadata', {
+export const useMetadataStore = defineStore('metadata', () => {
+  
+  const appStore = useAppStore()
+  const columns = ref(structuredClone(metadataColumns))
 
-    state: () => ({
+  const loading = ref(false)
+  const count = ref(0)
 
-        metadata: [],
-        loading: false,
-        totalRecords: 0,
-        columns: metadataColumns,
-        selectedColumns: metadataColumns.filter(c => c.default),
+  const pagination = reactive({ page: 1, rows: 100, })
+  const sort =  reactive({ field: 'fecha_emision', order: -1 })
 
-        filters: {},
+  const selectedColumns = computed(() =>
+      columns.value.filter(column => column.visible)
+  )
 
-        pagination: {
-            page: 1,
-            rows: 100,
-        },
+  async function fetchMetadata() {
 
-        sort: {
-            field: 'fecha_emision',
-            order: -1,
-        },
-    }),
+    loading.value = true
 
-    actions: {
+    try {
+      const query = {
+        page: pagination.page,
+        rows: pagination.rows,
 
-        async fetchMetadata(){},
-        setFilters(){},
-        clearFilters(){},
-        setColumns(){},
-        setPagination(){},
-        setSorting(){},
-        async exportToExcel(){},
+        sortField: sort.field,
+        sortOrder: sort.order,
+
+        columns: JSON.stringify(
+          selectedColumns.value.map(column => column.field)
+        ),
+
+        filters: JSON.stringify(
+          Object.fromEntries(
+            columns.value
+              .filter(column => column.filter)
+              .map(column => [
+                  column.field,
+                  column.filter,
+              ])
+          )
+        ),
+      }
+
+      const response = await metadataService.getMetadataByUser(query)
+
+      appStore.refreshMetadata(
+        Array.isArray(response)
+          ? response  
+          : (response?.data ?? [])  
+      )
+      count.value = response.count ?? 0
     }
-
+    catch (error) {
+      console.error(error)
+    }
+    finally {
+      loading.value = false
+    }
+  }
+  
+  return{
+    fetchMetadata,
+  }
 })

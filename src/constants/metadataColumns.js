@@ -1,4 +1,4 @@
-import { FilterMatchMode } from 'primevue/api'
+import { FilterMatchMode } from '@primevue/core/api'
 
 export const metadataColumns = [
 
@@ -11,7 +11,7 @@ export const metadataColumns = [
             value: null,
             matchMode: FilterMatchMode.CONTAINS,
         },
-        default: true,
+        visible: true,
     },
 
     {
@@ -23,7 +23,7 @@ export const metadataColumns = [
             value: null,
             matchMode: FilterMatchMode.CONTAINS,
         },
-        default: true,
+        visible: true,
     },
 
     {
@@ -35,7 +35,7 @@ export const metadataColumns = [
             value: null,
             matchMode: FilterMatchMode.CONTAINS,
         },
-        default: true,
+        visible: true,
     },
 
     {
@@ -47,7 +47,7 @@ export const metadataColumns = [
             value: null,
             matchMode: FilterMatchMode.CONTAINS,
         },
-        default: true,
+        visible: true,
     },
 
     {
@@ -59,7 +59,7 @@ export const metadataColumns = [
             value: null,
             matchMode: FilterMatchMode.CONTAINS,
         },
-        default: true,
+        visible: true,
     },
 
     {
@@ -71,7 +71,7 @@ export const metadataColumns = [
             value: null,
             matchMode: FilterMatchMode.CONTAINS,
         },
-        default: false,
+        visible: false,
     },
 
     {
@@ -83,7 +83,7 @@ export const metadataColumns = [
             value: null,
             matchMode: FilterMatchMode.DATE_IS,
         },
-        default: true,
+        visible: true,
     },
 
     {
@@ -95,7 +95,7 @@ export const metadataColumns = [
             value: null,
             matchMode: FilterMatchMode.DATE_IS,
         },
-        default: false,
+        visible: true,
     },
 
     {
@@ -107,7 +107,7 @@ export const metadataColumns = [
             value: null,
             matchMode: FilterMatchMode.EQUALS,
         },
-        default: true,
+        visible: true,
     },
 
     {
@@ -119,7 +119,7 @@ export const metadataColumns = [
             value: null,
             matchMode: FilterMatchMode.EQUALS,
         },
-        default: false,
+        visible: false,
     },
 
     {
@@ -131,7 +131,7 @@ export const metadataColumns = [
             value: null,
             matchMode: FilterMatchMode.EQUALS,
         },
-        default: false,
+        visible: false,
     },
 
     {
@@ -143,7 +143,7 @@ export const metadataColumns = [
             value: null,
             matchMode: FilterMatchMode.CONTAINS,
         },
-        default: false,
+        visible: false,
     },
 
     {
@@ -155,7 +155,7 @@ export const metadataColumns = [
             value: null,
             matchMode: FilterMatchMode.EQUALS,
         },
-        default: true,
+        visible: true,
     },
 
     {
@@ -167,7 +167,7 @@ export const metadataColumns = [
             value: null,
             matchMode: FilterMatchMode.DATE_IS,
         },
-        default: false,
+        visible: false,
     },
 
 ]

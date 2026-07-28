@@ -28,12 +28,21 @@ export async function getArchive(archiveId) {
  * Uploads and registers a new archive to the system with its validation payload.
  */
 export async function storeArchive(archiveData) {
+    const formData = new FormData()
+
+    formData.append('file', archiveData.file)
+    formData.append('hash_file', archiveData.hash_file)
 
     const { data } = await api.post(
         '/archives-prossesed',
-        archiveData
+        formData,
+        {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }
     )
-    
+
     return data
 }
 

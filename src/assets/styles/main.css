@@ -46,3 +46,13 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #6b7280;
 }
+
+.p-dialog-mask {
+    background: rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(4px);
+}
+
+.p-dialog {
+    border-radius: 16px !important;
+    overflow: hidden;
+}
