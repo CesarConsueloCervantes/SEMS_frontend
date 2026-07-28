@@ -10,7 +10,7 @@ export const useMetadataStore = defineStore('metadata', {
         loading: false,
         totalRecords: 0,
         columns: metadataColumns,
-        selectedColumns: metadataColumns.filter(c => c.default),
+        selectedColumns: metadataColumns.filter(c => c.visible),
 
         filters: {},
 
