@@ -48,12 +48,18 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { getArchivesByUser } from '@/services/Archives/archivesService'
+import { ref, onMounted, computed } from 'vue'
+import { useAppStore } from '@/stores/appStore.js'
 
-const archives = ref([])
-const loading = ref(false)
+const appStore = useAppStore()
 const errorMessage = ref('')
+
+const loading = computed(() => appStore.loading.archives)
+const archives = computed(() =>
+  Array.isArray(appStore.archivesProcessed)
+    ? appStore.archivesProcessed
+    : (appStore.archivesProcessed?.data ?? [])
+)
 
 const emit = defineEmits(['select-archive'])
 
@@ -61,16 +67,13 @@ const emit = defineEmits(['select-archive'])
  * Fetches the list of processed archives for the logged in user asynchronously from the API service.
  */
 const fetchArchives = async () => {
+  errorMessage.value = ''
+
   try {
-    loading.value = true
-    errorMessage.value = ''
-    const response = await getArchivesByUser()
-    archives.value = Array.isArray(response) ? response : (response?.data || [])
+    await appStore.refreshArchives()
   } catch (error) {
     console.error('Error fetching user archives:', error)
     errorMessage.value = 'No se pudieron cargar los archivos'
-  } finally {
-    loading.value = false
   }
 }
 
