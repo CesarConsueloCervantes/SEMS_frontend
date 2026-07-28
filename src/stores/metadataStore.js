@@ -1,39 +1,21 @@
 import { defineStore } from 'pinia'
+import { computed, ref, reactive } from 'vue'
 import { metadataColumns } from '@/constants/metadataColumns'
 import * as metadataService from '@/services/Archives/metadataService'
 
-export const useMetadataStore = defineStore('metadata', {
+export const useMetadataStore = defineStore('metadata', () => {
 
-    state: () => ({
+  const metadata = ref([])
+  const columns = ref(structuredClone(metadataColumns))
 
-        metadata: [],
-        loading: false,
-        totalRecords: 0,
-        columns: metadataColumns,
-        selectedColumns: metadataColumns.filter(c => c.visible),
+  const isloading = ref(false)
+  const count = ref(0)
 
-        filters: {},
+  const pagination = reactive({ page: 1, rows: 100, })
+  const sort =  reactive({ field: 'fecha_emision', order: -1 })
 
-        pagination: {
-            page: 1,
-            rows: 100,
-        },
-
-        sort: {
-            field: 'fecha_emision',
-            order: -1,
-        },
-    }),
-
-    actions: {
-
-        async fetchMetadata(){},
-        setFilters(){},
-        clearFilters(){},
-        setColumns(){},
-        setPagination(){},
-        setSorting(){},
-        async exportToExcel(){},
-    }
+  const selectedColumns = computed(() =>
+      columns.value.filter(column => column.visible)
+  )
 
 })
