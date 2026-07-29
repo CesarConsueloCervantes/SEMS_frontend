@@ -17,7 +17,7 @@ export const metadataColumns = [
     {
         field: 'rfc_emisor',
         header: 'RFC Emisor',
-        type: 'text',
+        type: 'enum',
         sortable: true,
         filter: {
             value: null,
@@ -29,7 +29,7 @@ export const metadataColumns = [
     {
         field: 'nombre_emisor',
         header: 'Nombre Emisor',
-        type: 'text',
+        type: 'enum',
         sortable: true,
         filter: {
             value: null,
@@ -41,7 +41,7 @@ export const metadataColumns = [
     {
         field: 'rfc_receptor',
         header: 'RFC Receptor',
-        type: 'text',
+        type: 'enum',
         sortable: true,
         filter: {
             value: null,
@@ -53,7 +53,7 @@ export const metadataColumns = [
     {
         field: 'nombre_receptor',
         header: 'Nombre Receptor',
-        type: 'text',
+        type: 'enum',
         sortable: true,
         filter: {
             value: null,
@@ -65,7 +65,7 @@ export const metadataColumns = [
     {
         field: 'pac_certifico',
         header: 'PAC Certificó',
-        type: 'text',
+        type: 'enum',
         sortable: false,
         filter: {
             value: null,
@@ -137,7 +137,7 @@ export const metadataColumns = [
     {
         field: 'efecto_comprobante',
         header: 'Efecto Comprobante',
-        type: 'text',
+        type: 'enum',
         sortable: true,
         filter: {
             value: null,
