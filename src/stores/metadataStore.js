@@ -64,7 +64,13 @@ export const useMetadataStore = defineStore('metadata', () => {
     }
   }
   
-  return{
+  return {
+    columns,
+    selectedColumns,
+    loading,
+    count,
+    pagination,
+    sort,
     fetchMetadata,
   }
 })
