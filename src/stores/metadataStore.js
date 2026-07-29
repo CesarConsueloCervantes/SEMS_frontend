@@ -27,6 +27,12 @@ export const useMetadataStore = defineStore('metadata', () => {
       columns.value.filter(column => column.visible)
   )
 
+  function changeVisibleColumn(field){
+    const column = columns.value.find(a => a.field === field)
+    if(!column) return
+    column.visible = !column.visible
+  }
+
   async function fetchMetadata() {
 
     loading.value = true
@@ -93,5 +99,6 @@ export const useMetadataStore = defineStore('metadata', () => {
     filterOptions,
     fetchMetadata,
     refreshFilterOptions,
+    changeVisibleColumn
   }
 })
