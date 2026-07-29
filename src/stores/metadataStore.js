@@ -11,6 +11,14 @@ export const useMetadataStore = defineStore('metadata', () => {
 
   const loading = ref(false)
   const count = ref(0)
+  const filterOptions = ref({
+    rfc_emisor: [],
+    nombre_emisor: [],
+    rfc_receptor: [],
+    nombre_receptor: [],
+    pac_certifico: [],
+    efecto_comprobante: [],
+  })
 
   const pagination = reactive({ page: 1, rows: 100, })
   const sort =  reactive({ field: 'fecha_emision', order: -1 })
@@ -54,6 +62,7 @@ export const useMetadataStore = defineStore('metadata', () => {
           ? response  
           : (response?.data ?? [])  
       )
+
       count.value = response.count ?? 0
     }
     catch (error) {
@@ -61,6 +70,16 @@ export const useMetadataStore = defineStore('metadata', () => {
     }
     finally {
       loading.value = false
+    }
+  }
+
+  async function refreshFilterOptions() {
+    try {
+      const response = await metadataService.getFilterOptions()
+
+      filterOptions.value = response  
+    } catch (error) {
+      console.error(error)
     }
   }
   
@@ -71,6 +90,8 @@ export const useMetadataStore = defineStore('metadata', () => {
     count,
     pagination,
     sort,
+    filterOptions,
     fetchMetadata,
+    refreshFilterOptions,
   }
 })
