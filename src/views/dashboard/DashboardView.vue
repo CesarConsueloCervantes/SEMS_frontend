@@ -15,8 +15,8 @@
 
     <div class="flex flex-1 relative overflow-hidden">
       <!-- Main dashboard content -->
-      <main class="flex-1 p-6 overflow-y-auto mr-80">
-        <h2 class="text-2xl font-bold text-gray-100 mb-4">Bienvenido al Panel Principal</h2>
+      <main class="flex-1 overflow-y-auto mr-80 ">
+        <MetadataTable />
       </main>
 
       <aside class="w-80 border-l border-[#333333] bg-[#1e1e1e] p-3 fixed right-0 top-10 bottom-0 overflow-hidden z-10 flex justify-center items-stretch">
@@ -31,6 +31,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
 import ArchivesPanel from '@/components/Dashboard/Sidebar/ArchivesPanel.vue'
+import MetadataTable from '@/components/Dashboard/Metadata/MetadataTable.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()
