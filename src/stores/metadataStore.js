@@ -81,9 +81,9 @@ export const useMetadataStore = defineStore('metadata', () => {
 
   async function refreshFilterOptions() {
     try {
-      const response = await metadataService.getFilterOptions()
+      const data = await metadataService.getFiltersOptions()
 
-      filterOptions.value = response  
+      filterOptions.value = data.options
     } catch (error) {
       console.error(error)
     }

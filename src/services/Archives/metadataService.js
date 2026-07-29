@@ -17,9 +17,9 @@ export async function getMetadataByUser(params = {}) {
 
 export async function getFiltersOptions() {
 
-    const { options } = await api.get(
+    const { data } = await api.get(
         `/metadata/options`
     )
     
-    return options
+    return data
 }
