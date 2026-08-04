@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen flex flex-col bg-[#1e1e1e] text-gray-100">
+  <div class="h-screen flex flex-col bg-[#1e1e1e] text-gray-100">
     <header class="w-full h-10 bg-[#252526] border-b border-[#333333] px-4 py-1.5 flex justify-between items-center sticky top-0 z-20 shadow-sm">
       <h1 class="text-sm font-bold tracking-wide text-gray-100">SEMS Dashboard</h1>
 
@@ -14,8 +14,7 @@
     </header>
 
     <div class="flex flex-1 relative overflow-hidden">
-      <!-- Main dashboard content -->
-      <main class="flex-1 overflow-y-auto mr-80 ">
+      <main class="flex-1 mr-80 overflow-hidden">
         <MetadataTable />
       </main>
 

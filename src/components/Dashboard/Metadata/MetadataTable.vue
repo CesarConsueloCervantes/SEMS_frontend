@@ -1,12 +1,14 @@
 <template>
-  <div class="w-full h-full overflow-hidden bg-[#1e1e1e] text-gray-100 shadow-lg">
+  <div class="w-full h-full flex flex-col overflow-hidden bg-[#1e1e1e]">
     <DataTable
       :value="appStore.metadata"
       :loading="metadataStore.loading"
       stripedRows
       responsiveLayout="scroll"
-      class="w-full text-sm"
+      class="flex-1"
       paginator
+      scrollable
+      scrollHeight="flex"
       :rows="rows"
       :rowsPerPageOptions="[5, 10, 25, 50]"
       paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
