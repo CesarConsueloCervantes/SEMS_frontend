@@ -115,7 +115,9 @@ const metadataStore = useMetadataStore()
  * @param {string} field - The field identifier of the column being toggled.
  */
 const handleVisibilityToggle = (field) => {
-  metadataStore.changeVisibleColumn(field)
+  if(field !== 'uuid') {
+    metadataStore.changeVisibleColumn(field)
+  }
   metadataStore.fetchMetadata()
 }
 

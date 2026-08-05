@@ -10,13 +10,15 @@
 
 <script setup>
 import Button from 'primevue/button'
+import { useMetadataStore } from '@/stores/metadataStore'
 
 const emit = defineEmits(['export'])
+const metadataStore = useMetadataStore()
 
 /**
  * Triggers the export event when the user clicks the excel export button.
  */
 const handleExport = () => {
-  emit('export')
+  metadataStore.exportToExcel()
 }
 </script>
