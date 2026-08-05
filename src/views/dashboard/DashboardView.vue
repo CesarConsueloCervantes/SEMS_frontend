@@ -14,7 +14,7 @@
     </header>
 
     <div class="flex flex-1 relative overflow-hidden">
-      <main class="flex-1 mr-80 overflow-hidden">
+      <main class="flex-1 mr-80 overflow-hidden pl-1">
         <MetadataTable />
       </main>
 
