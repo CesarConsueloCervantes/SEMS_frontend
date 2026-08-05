@@ -22,7 +22,7 @@ export const useMetadataStore = defineStore('metadata', () => {
     efecto_comprobante: [],
   })
 
-  const pagination = reactive({ page: 1, rows: 100, })
+  const pagination = reactive({ page: 0, rows: 100, })
   const sort =  reactive({ field: 'fecha_emision', order: -1 })
 
   const selectedColumns = computed(() =>
