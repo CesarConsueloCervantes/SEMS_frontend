@@ -3,6 +3,7 @@ import { computed, ref, reactive } from 'vue'
 import { metadataColumns } from '@/constants/metadataColumns'
 import * as metadataService from '@/services/Archives/metadataService'
 import { useAppStore } from '@/stores/appStore'
+import { exportExcel } from '@/utils/exportExcel'
 
 export const useMetadataStore = defineStore('metadata', () => {
   
@@ -10,6 +11,7 @@ export const useMetadataStore = defineStore('metadata', () => {
   const columns = ref(structuredClone(metadataColumns))
 
   const loading = ref(false)
+  const exporting = ref(false)
   const count = ref(0)
   const filterOptions = ref({
     rfc_emisor: [],
@@ -48,31 +50,35 @@ export const useMetadataStore = defineStore('metadata', () => {
     column.filter.value = value
   }
 
+  function queryhelper(paginate = true){
+    return {
+      first: paginate ? pagination.page : false,
+      rows: paginate ? pagination.rows : false,
+
+      orderBy: sort.field,
+      ascending: sort.order,
+
+      columns: JSON.stringify(
+        selectedColumns.value.map(column => column.field)
+      ),
+
+      filters: JSON.stringify(
+        Object.fromEntries(
+          selectedFilters.value.map(column => [
+                  column.field,
+                  column.filter,
+                ])
+        )
+      ),
+    }
+  }
+
   async function fetchMetadata() {
 
     loading.value = true
 
     try {
-      const query = {
-        first: pagination.page,
-        rows: pagination.rows,
-
-        orderBy: sort.field,
-        ascending: sort.order,
-
-        columns: JSON.stringify(
-          selectedColumns.value.map(column => column.field)
-        ),
-
-        filters: JSON.stringify(
-          Object.fromEntries(
-            selectedFilters.value.map(column => [
-                    column.field,
-                    column.filter,
-                  ])
-          )
-        ),
-      }
+      const query = queryhelper()
 
       const response = await metadataService.getMetadataByUser(query)
 
@@ -101,6 +107,28 @@ export const useMetadataStore = defineStore('metadata', () => {
       console.error(error)
     }
   }
+
+  async function exportToExcel(){
+    exporting.value = true
+
+    try {
+      const query = queryhelper(false)
+
+      const response = await metadataService.getMetadataByUser(query)
+
+      await exportExcel(
+            response.data,
+            selectedColumns.value
+        )
+    }
+    catch (error) {
+      console.error(error)
+    }
+    finally {
+      exporting.value = false
+    }
+
+  }
   
   return {
     columns,
@@ -114,6 +142,7 @@ export const useMetadataStore = defineStore('metadata', () => {
     refreshFilterOptions,
     changeVisibleColumn,
     updateFilterValues,
-    setPagination
+    setPagination,
+    exportToExcel
   }
 })
