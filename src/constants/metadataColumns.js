@@ -21,7 +21,7 @@ export const metadataColumns = [
         sortable: true,
         filter: {
             value: null,
-            matchMode: FilterMatchMode.CONTAINS,
+            matchMode: FilterMatchMode.EQUALS,
         },
         visible: true,
     },
@@ -33,7 +33,7 @@ export const metadataColumns = [
         sortable: true,
         filter: {
             value: null,
-            matchMode: FilterMatchMode.CONTAINS,
+            matchMode: FilterMatchMode.EQUALS,
         },
         visible: true,
     },
@@ -45,7 +45,7 @@ export const metadataColumns = [
         sortable: true,
         filter: {
             value: null,
-            matchMode: FilterMatchMode.CONTAINS,
+            matchMode: FilterMatchMode.EQUALS,
         },
         visible: true,
     },
@@ -57,7 +57,7 @@ export const metadataColumns = [
         sortable: true,
         filter: {
             value: null,
-            matchMode: FilterMatchMode.CONTAINS,
+            matchMode: FilterMatchMode.EQUALS,
         },
         visible: true,
     },
@@ -69,7 +69,7 @@ export const metadataColumns = [
         sortable: false,
         filter: {
             value: null,
-            matchMode: FilterMatchMode.CONTAINS,
+            matchMode: FilterMatchMode.EQUALS,
         },
         visible: false,
     },
@@ -105,7 +105,7 @@ export const metadataColumns = [
         sortable: true,
         filter: {
             value: null,
-            matchMode: FilterMatchMode.EQUALS,
+            matchMode: FilterMatchMode.BETWEEN,
         },
         visible: true,
     },
@@ -117,7 +117,7 @@ export const metadataColumns = [
         sortable: true,
         filter: {
             value: null,
-            matchMode: FilterMatchMode.EQUALS,
+            matchMode: FilterMatchMode.BETWEEN,
         },
         visible: false,
     },
@@ -129,7 +129,7 @@ export const metadataColumns = [
         sortable: true,
         filter: {
             value: null,
-            matchMode: FilterMatchMode.EQUALS,
+            matchMode: FilterMatchMode.BETWEEN,
         },
         visible: false,
     },
@@ -141,7 +141,7 @@ export const metadataColumns = [
         sortable: true,
         filter: {
             value: null,
-            matchMode: FilterMatchMode.CONTAINS,
+            matchMode: FilterMatchMode.EQUALS,
         },
         visible: false,
     },
