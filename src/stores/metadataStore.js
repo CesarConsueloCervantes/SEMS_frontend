@@ -31,6 +31,10 @@ export const useMetadataStore = defineStore('metadata', () => {
       columns.value.filter(column => column.visible)
                   .filter(column => column.filter)
   )
+  
+  function setPagination(first){
+    pagination.page = first
+  }
 
   function changeVisibleColumn(field){
     const column = columns.value.find(a => a.field === field)
@@ -50,11 +54,11 @@ export const useMetadataStore = defineStore('metadata', () => {
 
     try {
       const query = {
-        page: pagination.page,
+        first: pagination.page,
         rows: pagination.rows,
 
-        sortField: sort.field,
-        sortOrder: sort.order,
+        orderBy: sort.field,
+        ascending: sort.order,
 
         columns: JSON.stringify(
           selectedColumns.value.map(column => column.field)
@@ -109,6 +113,7 @@ export const useMetadataStore = defineStore('metadata', () => {
     fetchMetadata,
     refreshFilterOptions,
     changeVisibleColumn,
-    updateFilterValues
+    updateFilterValues,
+    setPagination
   }
 })

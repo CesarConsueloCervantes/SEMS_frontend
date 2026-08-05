@@ -7,14 +7,17 @@
       responsiveLayout="scroll"
       class="flex-1"
       paginator
+      lazy
       scrollable
       scrollHeight="flex"
+      :totalRecords="metadataStore.count"
       :rows="rows"
       :rowsPerPageOptions="[5, 10, 25, 50]"
       paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
       currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} metadatos"
       resizableColumns
       columnResizeMode="expand"
+      @page="onPage"
       :pt="tablePt"
     >
       <template #empty>
@@ -141,6 +144,11 @@ const formatCellValue = (value, type) => {
   }
 
   return String(value)
+}
+
+const onPage = (event) => {
+  metadataStore.setPagination(event.first)
+  metadataStore.fetchMetadata()
 }
 
 onMounted(() => {
