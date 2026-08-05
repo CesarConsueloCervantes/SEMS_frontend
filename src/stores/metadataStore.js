@@ -27,6 +27,11 @@ export const useMetadataStore = defineStore('metadata', () => {
       columns.value.filter(column => column.visible)
   )
 
+  const selectedFilters = computed(() =>
+      columns.value.filter(column => column.visible)
+                  .filter(column => column.filter)
+  )
+
   function changeVisibleColumn(field){
     const column = columns.value.find(a => a.field === field)
     if(!column) return
@@ -57,12 +62,10 @@ export const useMetadataStore = defineStore('metadata', () => {
 
         filters: JSON.stringify(
           Object.fromEntries(
-            columns.value
-              .filter(column => column.filter)
-              .map(column => [
-                  column.field,
-                  column.filter,
-              ])
+            selectedFilters.value.map(column => [
+                    column.field,
+                    column.filter,
+                  ])
           )
         ),
       }
