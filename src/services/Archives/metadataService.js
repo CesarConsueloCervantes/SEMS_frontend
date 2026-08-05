@@ -14,3 +14,12 @@ export async function getMetadataByUser(params = {}) {
     
     return data
 }
+
+export async function getFiltersOptions() {
+
+    const { data } = await api.get(
+        `/metadata/options`
+    )
+    
+    return data
+}

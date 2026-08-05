@@ -11,6 +11,14 @@ export const useMetadataStore = defineStore('metadata', () => {
 
   const loading = ref(false)
   const count = ref(0)
+  const filterOptions = ref({
+    rfc_emisor: [],
+    nombre_emisor: [],
+    rfc_receptor: [],
+    nombre_receptor: [],
+    pac_certifico: [],
+    efecto_comprobante: [],
+  })
 
   const pagination = reactive({ page: 1, rows: 100, })
   const sort =  reactive({ field: 'fecha_emision', order: -1 })
@@ -19,17 +27,38 @@ export const useMetadataStore = defineStore('metadata', () => {
       columns.value.filter(column => column.visible)
   )
 
+  const selectedFilters = computed(() =>
+      columns.value.filter(column => column.visible)
+                  .filter(column => column.filter)
+  )
+  
+  function setPagination(first){
+    pagination.page = first
+  }
+
+  function changeVisibleColumn(field){
+    const column = columns.value.find(a => a.field === field)
+    if(!column) return
+    column.visible = !column.visible
+  }
+
+  function updateFilterValues(field, value = []){
+    const column = columns.value.find(a => a.field === field)
+    if(!column) return
+    column.filter.value = value
+  }
+
   async function fetchMetadata() {
 
     loading.value = true
 
     try {
       const query = {
-        page: pagination.page,
+        first: pagination.page,
         rows: pagination.rows,
 
-        sortField: sort.field,
-        sortOrder: sort.order,
+        orderBy: sort.field,
+        ascending: sort.order,
 
         columns: JSON.stringify(
           selectedColumns.value.map(column => column.field)
@@ -37,12 +66,10 @@ export const useMetadataStore = defineStore('metadata', () => {
 
         filters: JSON.stringify(
           Object.fromEntries(
-            columns.value
-              .filter(column => column.filter)
-              .map(column => [
-                  column.field,
-                  column.filter,
-              ])
+            selectedFilters.value.map(column => [
+                    column.field,
+                    column.filter,
+                  ])
           )
         ),
       }
@@ -54,6 +81,7 @@ export const useMetadataStore = defineStore('metadata', () => {
           ? response  
           : (response?.data ?? [])  
       )
+
       count.value = response.count ?? 0
     }
     catch (error) {
@@ -63,8 +91,29 @@ export const useMetadataStore = defineStore('metadata', () => {
       loading.value = false
     }
   }
+
+  async function refreshFilterOptions() {
+    try {
+      const data = await metadataService.getFiltersOptions()
+
+      filterOptions.value = data.options
+    } catch (error) {
+      console.error(error)
+    }
+  }
   
-  return{
+  return {
+    columns,
+    selectedColumns,
+    loading,
+    count,
+    pagination,
+    sort,
+    filterOptions,
     fetchMetadata,
+    refreshFilterOptions,
+    changeVisibleColumn,
+    updateFilterValues,
+    setPagination
   }
 })

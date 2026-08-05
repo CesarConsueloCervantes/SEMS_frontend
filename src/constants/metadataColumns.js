@@ -17,11 +17,11 @@ export const metadataColumns = [
     {
         field: 'rfc_emisor',
         header: 'RFC Emisor',
-        type: 'text',
+        type: 'enum',
         sortable: true,
         filter: {
             value: null,
-            matchMode: FilterMatchMode.CONTAINS,
+            matchMode: FilterMatchMode.EQUALS,
         },
         visible: true,
     },
@@ -29,11 +29,11 @@ export const metadataColumns = [
     {
         field: 'nombre_emisor',
         header: 'Nombre Emisor',
-        type: 'text',
+        type: 'enum',
         sortable: true,
         filter: {
             value: null,
-            matchMode: FilterMatchMode.CONTAINS,
+            matchMode: FilterMatchMode.EQUALS,
         },
         visible: true,
     },
@@ -41,11 +41,11 @@ export const metadataColumns = [
     {
         field: 'rfc_receptor',
         header: 'RFC Receptor',
-        type: 'text',
+        type: 'enum',
         sortable: true,
         filter: {
             value: null,
-            matchMode: FilterMatchMode.CONTAINS,
+            matchMode: FilterMatchMode.EQUALS,
         },
         visible: true,
     },
@@ -53,11 +53,11 @@ export const metadataColumns = [
     {
         field: 'nombre_receptor',
         header: 'Nombre Receptor',
-        type: 'text',
+        type: 'enum',
         sortable: true,
         filter: {
             value: null,
-            matchMode: FilterMatchMode.CONTAINS,
+            matchMode: FilterMatchMode.EQUALS,
         },
         visible: true,
     },
@@ -65,11 +65,11 @@ export const metadataColumns = [
     {
         field: 'pac_certifico',
         header: 'PAC Certificó',
-        type: 'text',
+        type: 'enum',
         sortable: false,
         filter: {
             value: null,
-            matchMode: FilterMatchMode.CONTAINS,
+            matchMode: FilterMatchMode.EQUALS,
         },
         visible: false,
     },
@@ -105,7 +105,7 @@ export const metadataColumns = [
         sortable: true,
         filter: {
             value: null,
-            matchMode: FilterMatchMode.EQUALS,
+            matchMode: FilterMatchMode.BETWEEN,
         },
         visible: true,
     },
@@ -117,7 +117,7 @@ export const metadataColumns = [
         sortable: true,
         filter: {
             value: null,
-            matchMode: FilterMatchMode.EQUALS,
+            matchMode: FilterMatchMode.BETWEEN,
         },
         visible: false,
     },
@@ -129,7 +129,7 @@ export const metadataColumns = [
         sortable: true,
         filter: {
             value: null,
-            matchMode: FilterMatchMode.EQUALS,
+            matchMode: FilterMatchMode.BETWEEN,
         },
         visible: false,
     },
@@ -137,11 +137,11 @@ export const metadataColumns = [
     {
         field: 'efecto_comprobante',
         header: 'Efecto Comprobante',
-        type: 'text',
+        type: 'enum',
         sortable: true,
         filter: {
             value: null,
-            matchMode: FilterMatchMode.CONTAINS,
+            matchMode: FilterMatchMode.EQUALS,
         },
         visible: false,
     },

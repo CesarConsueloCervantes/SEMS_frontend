@@ -56,3 +56,221 @@ body {
     border-radius: 16px !important;
     overflow: hidden;
 }
+
+/* ============================
+   DataTable
+============================ */
+
+.p-datatable {
+    background: transparent;
+    color: #e5e7eb;
+}
+
+/* Tabla */
+
+.p-datatable-table {
+    background: transparent;
+    border-collapse: separate;
+    border-spacing: 0;
+    white-space: nowrap;
+}
+
+/* Header */
+
+.p-datatable-thead > tr > th {
+    background: #252526 !important;
+    color: #d4d4d4 !important;
+
+    font-size: .85rem;
+    font-weight: 600;
+
+    padding: .85rem 1rem;
+
+    border: none !important;
+    border-bottom: 1px solid #3c3c3c !important;
+
+    transition: .15s;
+}
+
+.p-datatable-thead > tr > th:hover {
+    background: #2d2d30 !important;
+}
+
+/* Body */
+
+.p-datatable-tbody > tr {
+    transition: background .15s;
+}
+
+.p-datatable-tbody > tr > td {
+
+    background: #1e1e1e !important;
+
+    color: #e5e7eb;
+
+    padding: .75rem 1rem;
+
+    border: none;
+    border-bottom: 1px solid #2f2f2f;
+
+    vertical-align: middle;
+}
+
+/* Hover */
+
+.p-datatable-tbody > tr:hover > td {
+    background: #252526 !important;
+}
+
+/* Selección */
+
+.p-datatable-tbody > tr.p-highlight > td {
+
+    background: rgba(16,185,129,.15) !important;
+
+    color: white;
+}
+
+/* Columnas */
+
+.p-datatable-tbody td,
+.p-datatable-thead th {
+
+    min-width: 180px;
+
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+/* Resize */
+
+.p-column-resizer {
+
+    background: transparent;
+
+    width: 4px;
+}
+
+.p-column-resizer:hover {
+
+    background: #10b981;
+}
+
+/* Scroll */
+
+.p-datatable-wrapper {
+
+    border-radius: 10px;
+}
+
+/* Scrollbar */
+
+.p-datatable-wrapper::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+}
+
+.p-datatable-wrapper::-webkit-scrollbar-track {
+    background: #1e1e1e;
+}
+
+.p-datatable-wrapper::-webkit-scrollbar-thumb {
+    background: #404040;
+    border-radius: 999px;
+}
+
+.p-datatable-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #565656;
+}
+
+/* Paginador */
+
+.p-paginator {
+
+    background: transparent !important;
+
+    border: none !important;
+
+    padding-top: 1rem;
+}
+
+.p-paginator .p-paginator-page,
+.p-paginator .p-paginator-next,
+.p-paginator .p-paginator-prev,
+.p-paginator .p-paginator-first,
+.p-paginator .p-paginator-last {
+
+    color: #d4d4d4;
+
+    border-radius: 6px;
+
+    transition: .15s;
+}
+
+.p-paginator .p-paginator-page:hover,
+.p-paginator .p-paginator-next:hover,
+.p-paginator .p-paginator-prev:hover,
+.p-paginator .p-paginator-first:hover,
+.p-paginator .p-paginator-last:hover {
+
+    background: #2d2d30;
+}
+
+.p-paginator .p-highlight {
+
+    background: #10b981 !important;
+
+    color: white !important;
+}
+
+/* ============================
+   MultiSelect Card Menu
+============================ */
+
+.p-multiselect-panel,
+.p-multiselect-overlay {
+    background: #1e1e1e !important;
+    border: 1px solid #333333 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.6) !important;
+    color: #e5e7eb !important;
+    padding: 6px !important;
+    overflow: hidden;
+}
+
+.p-multiselect-header {
+    background: #252526 !important;
+    color: #d4d4d4 !important;
+    border-bottom: 1px solid #333333 !important;
+    padding: 8px 12px !important;
+    border-top-left-radius: 8px !important;
+    border-top-right-radius: 8px !important;
+}
+
+.p-multiselect-header .p-inputtext {
+    background: #1e1e1e !important;
+    color: #f5f5f5 !important;
+    border: 1px solid #333333 !important;
+    border-radius: 6px !important;
+}
+
+.p-multiselect-items {
+    padding: 4px 0 !important;
+}
+
+.p-multiselect-item {
+    color: #d4d4d4 !important;
+    padding: 8px 12px !important;
+    border-radius: 6px !important;
+    transition: background 0.15s !important;
+}
+
+.p-multiselect-item:hover {
+    background: #2d2d30 !important;
+    color: #ffffff !important;
+}
+
+.p-multiselect-item.p-highlight {
+    background: rgba(16, 185, 129, 0.2) !important;
+    color: #10b981 !important;
+}
