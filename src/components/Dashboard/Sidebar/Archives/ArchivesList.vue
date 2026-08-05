@@ -16,7 +16,7 @@
       v-else
       v-for="archive in archives"
       :key="archive.short_archive_hash"
-      @click="handleSelect(archive)"
+      @click="handleSelect(archive, $event)"
       class="p-2 bg-[#252526] hover:bg-[#2d2d2d] border border-[#333333] rounded-lg cursor-pointer transition-colors text-xs text-gray-200 flex flex-col gap-1 w-full overflow-hidden group"
     >
       <div class="flex items-start gap-1.5 w-full">
@@ -79,9 +79,14 @@ const fetchArchives = async () => {
 
 /**
  * Handles selection of a single archive item from the list and emits the select-archive event.
+ *
+ * Emits the `select-archive` event passing the selected archive object and the pointer event.
+ *
+ * @param {Object} archive - The selected archive item.
+ * @param {Event} event - The DOM click event.
  */
-const handleSelect = (archive) => {
-  emit('select-archive', archive)
+const handleSelect = (archive, event) => {
+  emit('select-archive', archive, event)
 }
 
 onMounted(() => {

@@ -69,6 +69,8 @@
     </fieldset>
 
     <ArchivesUploadingDialog v-model:visible="isUploadDialogOpen" />
+
+    <Menu ref="archiveMenuRef" :model="archiveMenuOptions" :popup="true" class="!bg-[#1e1e1e] !border !border-[#333333] !rounded-xl !shadow-xl !p-1 text-xs" />
   </div>
 </template>
 
@@ -78,17 +80,21 @@
  * -----------------
  * Component acting as the main sidebar container for dashboard actions, archives list, and metadata filters.
  *
- * This component provides action buttons (Upload, Reset Filters, Export) and a tabbed body
- * section that allows switching between `ArchivesList` and `MetadataFilters` in the same visual area.
- * By default, `ArchivesList` is selected and displayed first.
+ * This component provides action buttons (Upload, Export) and a tabbed body section
+ * that allows switching between `ArchivesList` and `MetadataFilters`. When an archive item is selected in `ArchivesList`,
+ * `handleSelectArchive` opens a popup menu with the "Eliminar" option, which executes the archive deletion logic when clicked..
  */
 
 import { ref } from 'vue'
 import Button from 'primevue/button'
+import Menu from 'primevue/menu'
 import ExportButton from './ExportButton.vue'
 import ArchivesList from './Archives/ArchivesList.vue'
 import ArchivesUploadingDialog from './Archives/Dialog/ArchivesUploadingDialog.vue'
 import MetadataFilters from '@/components/Dashboard/Sidebar/MetadataFilters.vue'
+import { deleteArchive } from '@/services/Archives/archivesService.js'
+import { useMetadataStore } from '@/stores/metadataStore.js'
+import { useAppStore } from '@/stores/appStore.js'
 
 const props = defineProps({
   title: {
@@ -110,9 +116,29 @@ const emit = defineEmits([
 
 // Controls visibility state of the upload dialog
 const isUploadDialogOpen = ref(false)
+const metadataStore = useMetadataStore()
+const appStore = useAppStore()
 
 // Controls which tab is active in the sidebar body ('archives' by default)
 const activeTab = ref('archives')
+
+// References and state for selected archive options menu
+const archiveMenuRef = ref(null)
+const selectedArchiveItem = ref(null)
+
+// Menu items model containing the "Eliminar" option
+const archiveMenuOptions = ref([
+  {
+    label: 'Eliminar',
+    icon: 'pi pi-trash',
+    class: 'text-red-400 font-medium hover:bg-red-500/10 rounded-lg',
+    command: async () => {
+      if (selectedArchiveItem.value) {
+        await executeDeleteArchive(selectedArchiveItem.value)
+      }
+    }
+  }
+])
 
 /**
  * Changes the active sidebar view tab between ArchivesList and MetadataFilters.
@@ -146,13 +172,30 @@ const handleExportExcel = () => {
 }
 
 /**
- * Emits the select-archive event when an archive item from the list is clicked.
+ * Opens the contextual menu showing the "Eliminar" option for the clicked archive item.
  *
- * Emits the 'select-archive' event with the selected archive object payload.
+ * Saves the selected archive item payload and opens the PrimeVue Menu overlay showing the "Eliminar" option.
  *
  * @param {Object} item - The selected archive object.
+ * @param {Event} [event] - The DOM click event target.
  */
-const handleSelectArchive = (item) => {
-  emit('select-archive', item)
+const handleSelectArchive = (item, event) => {
+  selectedArchiveItem.value = item
+  if (archiveMenuRef.value) {
+    archiveMenuRef.value.toggle(event)
+  }
+}
+
+/**
+ * Executes the archive deletion process and refreshes store data.
+ *
+ * Calls deleteArchive API service with the archive ID, then refreshes appStore archives and fetches updated metadata in metadataStore.
+ *
+ * @param {Object} item - The archive object to be deleted.
+ */
+const executeDeleteArchive = async (item) => {
+  await deleteArchive(item.id)
+  appStore.refreshArchives()
+  metadataStore.fetchMetadata()
 }
 </script>
