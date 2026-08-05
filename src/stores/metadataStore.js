@@ -50,11 +50,8 @@ export const useMetadataStore = defineStore('metadata', () => {
     column.filter.value = value
   }
 
-  function queryhelper(paginate = true){
+  function queryhelper(){
     return {
-      first: paginate ? pagination.page : false,
-      rows: paginate ? pagination.rows : false,
-
       orderBy: sort.field,
       ascending: sort.order,
 
@@ -79,6 +76,10 @@ export const useMetadataStore = defineStore('metadata', () => {
 
     try {
       const query = queryhelper()
+      
+      query.first = pagination.page
+      query.rows = pagination.rows
+
 
       const response = await metadataService.getMetadataByUser(query)
 
@@ -112,7 +113,7 @@ export const useMetadataStore = defineStore('metadata', () => {
     exporting.value = true
 
     try {
-      const query = queryhelper(false)
+      const query = queryhelper()
 
       const response = await metadataService.getMetadataByUser(query)
 
